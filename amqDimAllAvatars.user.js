@@ -2,11 +2,11 @@
 // @name         AMQ Avatar Dimmer
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Dim avatars of players in a quiz by clicking
+// @description  Dim avatars of players in a quiz by left/right clicking on them
 // @author       Poppysr
 // @match        https://animemusicquiz.com/*
-// @downloadURL  https://github.com/Poppysr/amq-scripts/blob/main/amqDimAllAvatars.user.js
-// @updateURL    https://github.com/Poppysr/amq-scripts/blob/main/amqDimAllAvatars.user.js
+// @downloadURL  https://github.com/Poppysr/amq-scripts/raw/main/amqDimAllAvatars.user.js
+// @updateURL    https://github.com/Poppysr/amq-scripts/raw/main/amqDimAllAvatars.user.js
 // ==/UserScript==
 
 "use strict";
