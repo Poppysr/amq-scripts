@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Avatar Dimmer
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      1.0.3
 // @description  Dim avatars of players in a quiz by left/right clicking on them
 // @author       Poppysr
 // @match        https://animemusicquiz.com/*
@@ -24,6 +24,7 @@ function main() {
   $("#qpAvatarRowAvatarContainer").click((e) => {
     if (e.target.closest(".qpAvatarInfoBarOuter")) return;
     if (!e.target.closest(".qpAvatarContainer")) return;
+
     const avatarContainer = e.target.closest(".qpAvatarContainerOuter");
     if (avatarContainer) {
       toggleDimOnClickedAvatar(avatarContainer);
@@ -32,25 +33,23 @@ function main() {
 
   $("#qpAvatarRowAvatarContainer").on("contextmenu", (e) => {
     e.preventDefault();
-    const ifSomeDim = [...document.querySelectorAll(".qpAvatarContainerOuter")].some(avatar => parseFloat(window.getComputedStyle(avatar).opacity) < 1);
-    dimAllAvatars(ifSomeDim);
+    const $ifSomeDim = $(".qpAvatarContainerOuter").toArray().some(avatar => parseFloat($(avatar).css("opacity")) < 1);
+    dimAllAvatars($ifSomeDim);
   });
 
   function dimAllAvatars(isDim) {
     const isDimOpacity = isDim ? "1" : dimValue;
-    [...document.querySelectorAll(".qpAvatarContainerOuter")].forEach(elem => {
-      elem.style.opacity = isDimOpacity;
-    });
+    $(".qpAvatarContainerOuter").css("opacity", isDimOpacity);
   }
 
   function toggleDimOnClickedAvatar(targetElem) {
-    const targetElemParent = targetElem.closest(".qpAvatarContainerOuter");
-    const currentOpacity = window.getComputedStyle(targetElemParent).opacity;
+    const $targetElemParent = $(targetElem).closest(".qpAvatarContainerOuter");
+    const $currentOpacity = $targetElemParent.css("opacity");
 
-    if (currentOpacity < 1) {
-      targetElemParent.style.opacity = "1";
-    } else if (currentOpacity == 1) {
-      targetElemParent.style.opacity = dimValue;
+    if ($currentOpacity < 1) {
+      $targetElemParent.css("opacity", "1");
+    } else if ($currentOpacity == 1) {
+      $targetElemParent.css("opacity", dimValue);
     }
   };
 }
